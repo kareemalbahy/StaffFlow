@@ -52,6 +52,16 @@ employee_management_system
  │    │         ├── application-local.properties # Local profile (H2 settings)
  │    │         └── application-prod.properties  # Production profile (MySQL settings)
  │    └── test                                 # JUnit 5 Unit and Integration Tests
+ ├── images/                                   #
+ │   ├── DELETE_Employee.png
+ │   ├── DTO_Schemas.png
+ │   ├── EmployeeAPI.png
+ │   ├── GET_All_Employees.png
+ │   ├── GET_Employee.png
+ │   ├── POST_Employee.png
+ │   ├── PUT_Employee1.png
+ │   ├── PUT_Employee2.png
+ │   └── swagger.png
  ├── pom.xml                                   # Project Object Model
  └── README.md                                 # Project Documentation
 ```
@@ -130,3 +140,47 @@ The application enforces specific enterprise business logic:
 - **Minimum Wage Constraint (`@ValidSalary`)**: Uses a custom validation constraint to ensure that an employee's salary is greater than or equal to the minimum wage threshold of **`1,000.00`**.
 - **Past or Present Hire Date**: Ensures the hire date cannot be in the future.
 - **Phone Number Format**: Validates telephone numbers according to E.164 standards (`^\+[1-9]\d{7,14}$`).
+
+## Screenshots
+
+### Swagger UI
+Interactive Swagger/OpenAPI documentation for testing and exploring the available REST API endpoints.
+
+![Swagger UI](images/swagger.png)
+
+### DTO Schemas
+Swagger-generated schemas showing the request and response DTOs used by the API.
+
+![DTO Schemas](images/DTO_Schemas.png)
+
+### Employee API
+Overview of the available Employee REST API endpoints, including CRUD operations.
+
+![Employee API](images/EmployeeAPI.png)
+
+### Get All Employees
+Retrieves a paginated list of all employees with support for sorting and pagination.
+
+![Get All Employees](images/GET_All_Employees.png)
+
+### Get Employee
+Retrieves the details of a specific employee using their ID.
+
+![Get Employee](images/GET_Employee.png)
+
+### Create Employee
+Creates a new employee by sending employee information in the request body.
+
+![Create Employee](images/POST_Employee.png)
+
+### Update Employee
+Updates the information of an existing employee using their ID.
+
+![Update Employee](images/PUT_Employee1.png)
+
+![Update Employee](images/PUT_Employee2.png)
+
+### Delete Employee
+Soft-deletes an employee from the system using their ID.
+
+![Delete Employee](images/DELETE_Employee.png)
