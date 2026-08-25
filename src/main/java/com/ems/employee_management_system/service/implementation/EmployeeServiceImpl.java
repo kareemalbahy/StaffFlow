@@ -84,7 +84,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         if (employeeRepository.existsByEmailAndIdNot(employeeRequestDto.getEmail(),id)) {
             throw new EmailAlreadyExistsException(
-                String.format("email %s is already exisits", employeeRequestDto.getEmail()));
+                String.format("email %s is already exists", employeeRequestDto.getEmail()));
         }
 
         employeeMapper.updateEntityFromDto(employeeRequestDto, employee);
