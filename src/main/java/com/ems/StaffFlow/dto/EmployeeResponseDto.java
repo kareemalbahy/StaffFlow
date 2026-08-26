@@ -1,4 +1,4 @@
-package com.ems.employee_management_system.dto;
+package com.ems.StaffFlow.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

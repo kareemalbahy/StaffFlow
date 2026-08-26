@@ -1,9 +1,9 @@
-package com.ems.employee_management_system.dto;
+package com.ems.StaffFlow.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.ems.employee_management_system.validation.ValidSalary;
+import com.ems.StaffFlow.validation.ValidSalary;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

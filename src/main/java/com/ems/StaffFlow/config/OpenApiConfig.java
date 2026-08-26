@@ -1,4 +1,4 @@
-package com.ems.employee_management_system.config;
+package com.ems.StaffFlow.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

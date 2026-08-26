@@ -1,4 +1,4 @@
-package com.ems.employee_management_system.entity;
+package com.ems.StaffFlow.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

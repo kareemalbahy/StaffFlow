@@ -1,4 +1,4 @@
-package com.ems.employee_management_system.repository;
+package com.ems.StaffFlow.repository;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.ems.employee_management_system.entity.Employee;
+import com.ems.StaffFlow.entity.Employee;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee,Long>, JpaSpecificationExecutor<Employee> {

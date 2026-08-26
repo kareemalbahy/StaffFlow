@@ -1,11 +1,11 @@
-package com.ems.employee_management_system.mapper;
+package com.ems.StaffFlow.mapper;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-import com.ems.employee_management_system.dto.EmployeeRequestDto;
-import com.ems.employee_management_system.dto.EmployeeResponseDto;
-import com.ems.employee_management_system.entity.Employee;
+import com.ems.StaffFlow.dto.EmployeeRequestDto;
+import com.ems.StaffFlow.dto.EmployeeResponseDto;
+import com.ems.StaffFlow.entity.Employee;
 
 @Component
 public class EmployeeMapper {

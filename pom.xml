@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ems</groupId>
-	<artifactId>employee_management_system</artifactId>
+	<artifactId>StaffFlow</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>employee_management_system</name>
+	<name>StaffFlow</name>
 	<description/>
 	<url/>
 	<licenses>

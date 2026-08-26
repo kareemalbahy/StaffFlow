@@ -1,11 +1,11 @@
-package com.ems.employee_management_system.service;
+package com.ems.StaffFlow.service;
 
 import java.math.BigDecimal;
 
 import org.springframework.data.domain.Page;
 
-import com.ems.employee_management_system.dto.EmployeeRequestDto;
-import com.ems.employee_management_system.dto.EmployeeResponseDto;
+import com.ems.StaffFlow.dto.EmployeeRequestDto;
+import com.ems.StaffFlow.dto.EmployeeResponseDto;
 
 public interface EmployeeService {
     

@@ -1,4 +1,4 @@
-package com.ems.employee_management_system.config;
+package com.ems.StaffFlow.config;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

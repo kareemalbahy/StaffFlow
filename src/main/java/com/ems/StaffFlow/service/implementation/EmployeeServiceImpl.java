@@ -1,4 +1,4 @@
-package com.ems.employee_management_system.service.implementation;
+package com.ems.StaffFlow.service.implementation;
 
 import java.math.BigDecimal;
 
@@ -9,14 +9,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ems.employee_management_system.dto.EmployeeRequestDto;
-import com.ems.employee_management_system.dto.EmployeeResponseDto;
-import com.ems.employee_management_system.entity.Employee;
-import com.ems.employee_management_system.exception.EmailAlreadyExistsException;
-import com.ems.employee_management_system.exception.ResourceNotFoundException;
-import com.ems.employee_management_system.mapper.EmployeeMapper;
-import com.ems.employee_management_system.repository.EmployeeRepository;
-import com.ems.employee_management_system.service.EmployeeService;
+import com.ems.StaffFlow.dto.EmployeeRequestDto;
+import com.ems.StaffFlow.dto.EmployeeResponseDto;
+import com.ems.StaffFlow.entity.Employee;
+import com.ems.StaffFlow.exception.EmailAlreadyExistsException;
+import com.ems.StaffFlow.exception.ResourceNotFoundException;
+import com.ems.StaffFlow.mapper.EmployeeMapper;
+import com.ems.StaffFlow.repository.EmployeeRepository;
+import com.ems.StaffFlow.service.EmployeeService;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {

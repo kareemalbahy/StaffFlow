@@ -1,4 +1,4 @@
-package com.ems.employee_management_system.controller;
+package com.ems.StaffFlow.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ems.employee_management_system.dto.EmployeeRequestDto;
-import com.ems.employee_management_system.dto.EmployeeResponseDto;
-import com.ems.employee_management_system.service.EmployeeService;
+import com.ems.StaffFlow.dto.EmployeeRequestDto;
+import com.ems.StaffFlow.dto.EmployeeResponseDto;
+import com.ems.StaffFlow.service.EmployeeService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

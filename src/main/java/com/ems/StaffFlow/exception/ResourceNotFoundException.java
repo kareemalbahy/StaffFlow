@@ -1,4 +1,4 @@
-package com.ems.employee_management_system.exception;
+package com.ems.StaffFlow.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

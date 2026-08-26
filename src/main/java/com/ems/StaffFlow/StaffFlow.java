@@ -1,13 +1,13 @@
-package com.ems.employee_management_system;
+package com.ems.StaffFlow;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EmployeeManagementSystemApplication {
+public class StaffFlow {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EmployeeManagementSystemApplication.class, args);
+		SpringApplication.run(StaffFlow.class, args);
 	}
 
 }
