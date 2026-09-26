@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>StaffFlow</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        h1 {
+            margin-bottom: 16px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #f0f0f0;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            text-decoration: none;
+            color: white;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .btn-blue {
+            background: #3b82f6;
+        }
+
+        .btn-green {
+            background: #22c55e;
+        }
+
+        .btn-red {
+            background: #ef4444;
+        }
+
+        .btn-gray {
+            background: #6b7280;
+        }
+
+        input,
+        select {
+            padding: 6px 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            display: block;
+        }
+
+        .msg-ok {
+            color: green;
+            margin-bottom: 12px;
+        }
+
+        .msg-err {
+            color: red;
+            margin-bottom: 12px;
+        }
+
+        .form-row {
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-width: 400px;
+        }
+
+        .form-row label {
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        fieldset {
+            border: 1px solid #ccc;
+            padding: 16px;
+            max-width: 440px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        legend {
+            font-weight: bold;
+            padding: 0 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>StaffFlow – Employees</h1>
+
+    <!-- Flash messages -->
+    <p class="msg-ok" th:if="${successMessage}" th:text="${successMessage}"></p>
+    <p class="msg-err" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+
+    <!-- Add Employee button -->
+    <p>
+        <a class="btn btn-green" th:href="@{/(action='add', pageNo=${pageNo}, pageSize=${pageSize})}">+ Add Employee</a>
+    </p>
+
+    <!-- Search form -->
+    <form method="get" th:action="@{/}" style="margin-bottom:16px;">
+        <input type="hidden" name="pageNo" value="0" />
+        <input type="hidden" name="pageSize" th:value="${pageSize}" />
+        <input type="text" name="firstName" th:value="${firstName}" placeholder="First name" />
+        <input type="text" name="department" th:value="${department}" placeholder="Department" />
+        <button class="btn btn-blue" type="submit">Search</button>
+        <a class="btn btn-gray" th:href="@{/}">Clear</a>
+    </form>
+
+    <!-- Employee table -->
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Position</th>
+                <th>Salary</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${#lists.isEmpty(employees)}">
+                <td colspan="7">No employees found.</td>
+            </tr>
+            <tr th:each="emp, s : ${employees}">
+                <td th:text="${pageNo * pageSize + s.index + 1}"></td>
+                <td th:text="${emp.firstName + ' ' + emp.lastName}"></td>
+                <td th:text="${emp.email}"></td>
+                <td th:text="${emp.department}"></td>
+                <td th:text="${emp.position}"></td>
+                <td th:text="${emp.salary}"></td>
+                <td>
+                    <a class="btn btn-gray"
+                        th:href="@{/(action='view', id=${emp.id}, pageNo=${pageNo}, pageSize=${pageSize})}">View</a>
+                    <a class="btn btn-blue"
+                        th:href="@{/(action='edit', id=${emp.id}, pageNo=${pageNo}, pageSize=${pageSize})}">Edit</a>
+                    <form style="display:inline;" th:action="@{/employees/delete/{id}(id=${emp.id})}" method="post"
+                        onsubmit="return confirm('Delete this employee?')">
+                        <input type="hidden" name="pageNo" th:value="${pageNo}" />
+                        <input type="hidden" name="pageSize" th:value="${pageSize}" />
+                        <button class="btn btn-red" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div th:if="${totalPages > 1}" style="margin-top:12px;">
+        <a th:if="${pageNo > 0}" class="btn btn-gray"
+            th:href="@{/(pageNo=${pageNo - 1}, pageSize=${pageSize}, firstName=${firstName}, department=${department})}">←
+            Prev</a>
+        <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+            <a th:classappend="${i == pageNo} ? 'btn btn-blue' : 'btn btn-gray'"
+                th:href="@{/(pageNo=${i}, pageSize=${pageSize}, firstName=${firstName}, department=${department})}"
+                th:text="${i + 1}" style="margin:0 2px;"></a>
+        </span>
+        <a th:if="${pageNo + 1 < totalPages}" class="btn btn-gray"
+            th:href="@{/(pageNo=${pageNo + 1}, pageSize=${pageSize}, firstName=${firstName}, department=${department})}">Next
+            →</a>
+    </div>
+
+    <!-- ADD / EDIT form -->
+    <div th:if="${action == 'add' or action == 'edit'}" style="margin-top:24px;">
+        <fieldset>
+            <legend th:text="${action == 'edit'} ? 'Edit Employee' : 'Add Employee'">Form</legend>
+
+            <form th:action="@{/employees/save}" method="post" th:object="${employeeForm}">
+                <input type="hidden" name="id" th:value="${id}" />
+                <input type="hidden" name="pageNo" th:value="${pageNo}" />
+                <input type="hidden" name="pageSize" th:value="${pageSize}" />
+
+                <div class="form-row">
+                    <label>First Name</label>
+                    <input type="text" th:field="*{firstName}" placeholder="John" />
+                    <span class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                </div>
+                <div class="form-row">
+                    <label>Last Name</label>
+                    <input type="text" th:field="*{lastName}" placeholder="Doe" />
+                    <span class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                </div>
+                <div class="form-row">
+                    <label>Email</label>
+                    <input type="email" th:field="*{email}" placeholder="john@example.com" />
+                    <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </div>
+                <div class="form-row">
+                    <label>Phone (e.g. +1234567890)</label>
+                    <input type="tel" th:field="*{phone}" placeholder="+1234567890" />
+                    <span class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+                </div>
+                <div class="form-row">
+                    <label>Department</label>
+                    <input type="text" th:field="*{department}" placeholder="Engineering" />
+                    <span class="error" th:if="${#fields.hasErrors('department')}" th:errors="*{department}"></span>
+                </div>
+                <div class="form-row">
+                    <label>Position</label>
+                    <input type="text" th:field="*{position}" placeholder="Developer" />
+                    <span class="error" th:if="${#fields.hasErrors('position')}" th:errors="*{position}"></span>
+                </div>
+                <div class="form-row">
+                    <label>Salary</label>
+                    <input type="number" th:field="*{salary}" placeholder="50000" min="0" step="0.01" />
+                    <span class="error" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></span>
+                </div>
+                <div class="form-row">
+                    <label>Hire Date</label>
+                    <input type="date" th:field="*{hireDate}" />
+                    <span class="error" th:if="${#fields.hasErrors('hireDate')}" th:errors="*{hireDate}"></span>
+                </div>
+
+                <button class="btn btn-green" type="submit"
+                    th:text="${action == 'edit'} ? 'Save Changes' : 'Create'">Save</button>
+                <a class="btn btn-gray" th:href="@{/(pageNo=${pageNo}, pageSize=${pageSize})}">Cancel</a>
+            </form>
+        </fieldset>
+    </div>
+
+    <!-- VIEW details (shown inline below table) -->
+    <div th:if="${action == 'view' and viewEmployee != null}" style="margin-top:24px;">
+        <fieldset th:object="${viewEmployee}">
+            <legend>Employee Details</legend>
+
+            <table style="border:none; width:auto;">
+                <tr style="border:none;"><td style="border:none; font-weight:bold; padding:4px 12px 4px 0;">ID</td>          <td style="border:none;" th:text="*{id}"></td></tr>
+                <tr style="border:none;"><td style="border:none; font-weight:bold; padding:4px 12px 4px 0;">Full Name</td>   <td style="border:none;" th:text="*{firstName + ' ' + lastName}"></td></tr>
+                <tr style="border:none;"><td style="border:none; font-weight:bold; padding:4px 12px 4px 0;">Email</td>       <td style="border:none;" th:text="*{email}"></td></tr>
+                <tr style="border:none;"><td style="border:none; font-weight:bold; padding:4px 12px 4px 0;">Phone</td>       <td style="border:none;" th:text="*{phone}"></td></tr>
+                <tr style="border:none;"><td style="border:none; font-weight:bold; padding:4px 12px 4px 0;">Department</td>  <td style="border:none;" th:text="*{department}"></td></tr>
+                <tr style="border:none;"><td style="border:none; font-weight:bold; padding:4px 12px 4px 0;">Position</td>    <td style="border:none;" th:text="*{position}"></td></tr>
+                <tr style="border:none;"><td style="border:none; font-weight:bold; padding:4px 12px 4px 0;">Salary</td>      <td style="border:none;" th:text="*{salary}"></td></tr>
+                <tr style="border:none;"><td style="border:none; font-weight:bold; padding:4px 12px 4px 0;">Hire Date</td>   <td style="border:none;" th:text="*{hireDate}"></td></tr>
+                <tr style="border:none;"><td style="border:none; font-weight:bold; padding:4px 12px 4px 0;">Created At</td>  <td style="border:none;" th:text="*{createdAt}"></td></tr>
+                <tr style="border:none;"><td style="border:none; font-weight:bold; padding:4px 12px 4px 0;">Updated At</td>  <td style="border:none;" th:text="*{updatedAt}"></td></tr>
+                <tr style="border:none;"><td style="border:none; font-weight:bold; padding:4px 12px 4px 0;">Status</td>      <td style="border:none;" th:text="*{active} ? 'Active' : 'Inactive'"></td></tr>
+            </table>
+
+            <p style="margin-top:12px;">
+                <a class="btn btn-blue"
+                   th:href="@{/(action='edit', id=${viewEmployee.id}, pageNo=${pageNo}, pageSize=${pageSize})}">Edit</a>
+                <a class="btn btn-gray"
+                   th:href="@{/(pageNo=${pageNo}, pageSize=${pageSize})}">Back</a>
+            </p>
+        </fieldset>
+    </div>
+
+</body>
+
+</html>
