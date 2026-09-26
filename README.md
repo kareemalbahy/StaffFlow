@@ -1,6 +1,6 @@
 # 🏢 StaffFlow - Employee Management System (EMS)
 
-A modern, production-ready Spring Boot web application for managing employee records. The system provides robust **REST APIs** for integrations. It features soft deletions, pagination, sorting, search filters, custom input validations, and Swagger/OpenAPI documentation.
+A modern, production-ready Spring Boot web application for managing employee records. The system provides robust **REST APIs** for integrations and a **Thymeleaf-based user interface** for direct interaction. It features soft deletions, pagination, sorting, search filters, custom input validations, and Swagger/OpenAPI documentation.
 
 ---
 
